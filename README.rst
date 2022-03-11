@@ -28,7 +28,7 @@ numpy
 
 Jupyter Notebook
 ==========================================
-The Jupyter notebook provided is the primary component of this build, which currently has two working functions: file reading, and query comparison, the latter of which is debugged. 
+The Jupyter notebook provided is the primary component of this build, which currently has two working functions: file reading, and query comparison, the latter of which is still being debugged. 
 
 Alleles.aln
 -------------
