@@ -27,12 +27,11 @@ the fasta reads file is used to create a DeBruijn graph
 
 #### Command Line Usage
 ```commandline
-default, specify reads and query input
 $ python .\main.py 
-The user will be prompted for various inputs, including: directory of the reads/query files, names of the reads/query files, as well as kmer size and starting node for the 
-Hierholzer algorithm. Default values are provided for all, however for Kmer-size the current run is using kmers of size 10. 
-
 ```
+The user will be prompted for various inputs, including: directory of the reads/query files, names of the reads/query files, 
+as well as kmer size and starting node for the Hierholzer algorithm. Default values are provided for all, 
+however for Kmer-size the current run is using kmers of size 10. This has yet to complete, we are on hour 18. Results pending. 
 
 ## Input
 1. READS.fasta
