@@ -49,29 +49,29 @@ def z_array(s):
     if z[1] > 0:
         r, l = z[1], 1
 
-        for k in range (2, len(s)):
-            assert z[k] == 0 
-            if k > r:
-                for i in range (k, len(s)):
-                    if s[i] == s[i-k]:
-                        z[k] += 1
+    for k in range (2, len(s)):
+        assert z[k] == 0 
+        if k > r:
+            for i in range (k, len(s)):
+                if s[i] == s[i-k]:
+                    z[k] += 1
+                else:
+                    break
+            r, l = k + z[k] - 1, k
+        else:
+            nbeta = r - k + 1
+            zkp = z[k -1 ]
+            if nbeta > zkp:
+                z[k] = zkp
+            else: 
+                nmatch = 0
+                for i in range (r+1, len(s)):
+                    if s[i] == s[i - k]:
+                        nmatch += 1
                     else:
                         break
-                r, l = k + z[k] - 1, k
-            else:
-                nbeta = r - k + 1
-                zkp = z[k -1 ]
-                if nbeta > zkp:
-                    z[k] = zkp
-                else: 
-                    nmatch = 0
-                    for i in range (r+1, len(s)):
-                        if s[i] == s[i - k]:
-                            nmatch += 1
-                        else:
-                            break
-                    l, r = k, r + nmatch
-                    z[k] = r - k + 1
+                l, r = k, r + nmatch
+                z[k] = r - k + 1
     return z
 
 # Compiles the N array (Gusfield Theorem) from the Z array
