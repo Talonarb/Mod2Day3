@@ -70,7 +70,6 @@ starting_node = int(starting_node)
 
 # This converts the line read from the query file (after skipping the identifier) to a string
 FASTAquery = str(FASTAquery)
-print('This is the fastquery before artifact removal, ', FASTAquery)
 # This step removes artifacts from the query file such that no brackets, newline characters, or quotations remain. 
 # Alter this section if there are no such characters remaining in your query fasta file. 
 print(QueryFilename,'', ReadFilename)
@@ -81,7 +80,6 @@ def main():
     global circuit 
     FASTAreads, FASTAquery = DandF.Test_FASTAreader(ReadDirectory, QueryDirectory, ReadFilename, QueryFilename)
     FASTAquery = FASTAquery[2:-4]
-    print("this is the fastaquery ", FASTAquery)
     FASTAquery_reverse = FASTAquery[::-1] 
     fasta_dict = DandF.Test_FASTA_to_dict((os.path.join(ReadDirectory, ReadFilename)))
     sequence_names_from_fasta, sequences_from_fasta = DandF.fasta_dict_to_kv_lists(fasta_dict)
@@ -101,8 +99,10 @@ def main():
     FASTA_nodes, FASTA_edges = Dbrew.DuhBrewin(sequences_from_fasta, kmer_size)
     pairs_to_dict(FASTA_edges, FASTA_edge_dict)
     FASTA_contig = Hhzer.visualize_Eulerian_tour(FASTA_edges, FASTA_edge_dict, starting_node)
-    print("This is the assembled contig, ",  FASTA_contig)
-    print("this is the fastaquery, ", FASTAquery)
+    fasta_out = (">Contig_1 \n" + FASTA_contig)
+    alleles_fasta = open(r'ALLELES.fasta', 'w+')
+    alleles_fasta.write(fasta_out)
+    alleles_fasta.close
     p_bm = BoyM.BoyerMoore(FASTAquery)
     Match_index = (BoyM.boyer_moore(FASTAquery, p_bm, FASTA_contig))
     if Match_index == []:
@@ -138,9 +138,7 @@ def main():
             match_index_to_int = Match_index[0]
             data_to_append = [sequence_id_from_dict, 'contig_found', '0', len(converted_seq), match_index_to_int, ((len(converted_seq) + match_index_to_int))]
             outdataframe = outdataframe.append(pd.DataFrame([data_to_append], columns = ['SSEQID', 'QSEQID', 'SSTART', 'SEND', 'QSTART', 'QEND']), ignore_index = True)
-            print(data_to_append)
-            print(outdataframe)
-            outdataframe.to_csv('ALLELES.aln', sep="\t")
+    outdataframe.to_csv('ALLELES.aln', sep="\t")
 
     
 
